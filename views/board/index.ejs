@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Conway's Game of Life </title>
+  <script src="js/libs/jquery.min.js"></script>
+  <script src="js/libs/d3.min.js"></script>
+  <link href="/css/game.css" media="all" rel="stylesheet" type="text/css" />
+</head>
+<body>
+  <h3> Conway's Game of Life </h3>
+  <p>alive = <span id="alive">0</span></p>
+  <p>i = <span id="iteration">0</span></p>
+  <button id="start">Start</button>
+  <div id="board">
+    <% for(var i=0; i < board.height; i++) {%>
+      <div class="row">
+        <% for(var j=0; j < board.width; j++) {%>
+          <div class="cell" data-id="<%= i * board.width + j %>" data-toggle="false"></div>
+        <% } %>
+      </div>
+    <% } %>
+  </div>
+  <script src="js/client.js"></script>
+</body>
+</html>

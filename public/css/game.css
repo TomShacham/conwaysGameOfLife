@@ -1,0 +1,12 @@
+button#start {
+  margin-bottom: 10px;
+}
+
+.cell {
+  border: 2px solid #88a;
+  padding: 5px 5px;
+  margin: -1.5px -1px;
+  width: 5px;
+  height: 5px;
+  display: inline-block;
+}
