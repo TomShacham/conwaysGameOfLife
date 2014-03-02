@@ -13,4 +13,4 @@ The point of Conway's game of life is to show that with 4 simple rules, you can 
 
 Enjoy
 
-  [insightful wikipedia page]: 'http://en.wikipedia.org/wiki/Conway's_Game_of_Life'
+  [insightful wikipedia page]: http://en.wikipedia.org/wiki/Conway's_Game_of_Life
