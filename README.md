@@ -1,6 +1,8 @@
 Conways Game of Life
 ---
 
+Hosted on heroku (+ uses newrelic) at http://conways-game-of-life-on-node.herokuapp.com/
+
 Tech wise this is a Node.js application that uses Express.js and is essentially powered by jQuery (it's doing most of the business logic). Look in public/js/client.js for the crux of it.
 
 You can read the [insightful wikipedia page] but basically this demonstrates the idea of chaos theory.
