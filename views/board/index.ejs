@@ -8,9 +8,17 @@
   <link href="/css/game.css" media="all" rel="stylesheet" type="text/css" />
 </head>
 <body>
-  <h3> Conway's Game of Life </h3>
-  <p>alive = <span id="alive">0</span></p>
-  <p>i = <span id="iteration">0</span></p>
+  <h3 class="title"> Conway's Game of Life </h3>
+  <div id="instructions">
+    <h4> Instructions </h4>
+    <p>Initialize the board by clicking on all or any number of cells.</p>
+    <p>Then press Start and watch your board evolve.</p>
+  </div>
+  <div id="stats">
+    <h4> Stats </h4>
+    <p>alive = <span id="alive">0</span></p>
+    <p>i = <span id="iteration">0</span></p>
+  </div>
   <button id="start">Start</button>
   <div id="board">
     <% for(var i=0; i < board.height; i++) {%>

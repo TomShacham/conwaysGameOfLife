@@ -5,6 +5,7 @@
 $(document).ready(function(){
 
   var speed = 100;
+  var plotLength = 20;
 
   function Board(){
     this.width = 14;
@@ -77,7 +78,17 @@ $(document).ready(function(){
       }
     })
     $('#alive').text(count);
-  }
+    return count;
+  };
+
+  var populateTimeSeries = function(timeSeries, value){
+    if ( timeSeries.length >= plotLength ){
+      timeSeries.shift();
+      timeSeries.push(value);
+    } else {
+      timeSeries.push(value);
+    }
+  };
 
   $('.cell').on("click", function(){
     toggleColor($(this));
@@ -113,8 +124,133 @@ $(document).ready(function(){
     setTimeout(function(){
         start();
         totalAlive();
+        populateTimeSeries(timeSeries, totalAlive());
+
+        var chtXScale = d3.scale.ordinal()
+                      .domain(d3.range(plotLength))
+                      .rangeRoundBands([padding, w], 0.05);
+
+        var chtYScale = d3.scale.linear()
+                          .domain([0, d3.max(timeSeries)])
+                          .range([0 , h - padding*2]);
+
+        var chtColor = d3.scale.linear()
+                                .domain([0, d3.max(timeSeries)])
+                                .range([0, 255]);
+
+        if ( timeSeries.length < plotLength ){
+          graph.selectAll('rect')
+              .data( timeSeries )
+              .enter()
+              .append('rect')
+              .attr('x', function(d,i){
+                      return chtXScale(i);
+                    })
+              .attr('width', chtXScale.rangeBand())
+              .attr('y', function(d,i){
+                return (h - chtYScale(d) - padding);
+              })
+              .attr('height', function(d,i){
+                return chtYScale(d);
+              })
+              .attr("fill", function(d) {
+                return d3.rgb(chtColor(d), 30, chtColor(d)/3);
+              });
+
+        xAxis.call(d3.svg.axis()
+                      .orient('bottom')
+                      .scale(chtXScale) );
+
+        yAxis
+        .attr('transform','rotate(' + (180) +  ',' + padding/2 + ',' + (padding*6) + ')')
+        .call(d3.svg.axis()
+                      .orient('left')
+                      .scale(chtYScale) )
+        .selectAll("text")
+          .attr('transform', 'rotate(180)');
+
+
+
+        } else {
+          var chtXScale = d3.scale.ordinal()
+                .domain(d3.range(plotLength))
+                .rangeRoundBands([padding, w], 0.05);
+
+          var chtYScale = d3.scale.linear()
+                            .domain([0, d3.max(timeSeries)])
+                            .range([0 , h - padding*2]);
+
+          var chtColor = d3.scale.linear()
+                                  .domain([0, d3.max(timeSeries)])
+                                  .range([0, 255]);
+
+          graph.selectAll('rect')
+              .data( timeSeries )
+              .attr('x', function(d,i){
+                      return chtXScale(i);
+                    })
+              .attr('width', chtXScale.rangeBand())
+              .attr('y', function(d,i){
+                return (h - chtYScale(d) - padding);
+              })
+              .attr('height', function(d,i){
+                return chtYScale(d);
+              })
+              .attr("fill", function(d) {
+                return d3.rgb(chtColor(d), 30, chtColor(d)/3);
+              });
+
+          xAxis.attr('class','xAxis')
+             .attr('transform','translate(0,' + (h - padding) + ')')
+              .call(d3.svg.axis()
+                  .orient('bottom')
+                  .scale(chtXScale) );
+
+          yAxis.attr('class','yAxis')
+              .attr('transform','rotate(' + (180) +  ',' + padding/2 + ',' + (padding*6) + ')')
+              .call(d3.svg.axis()
+                  .orient('left')
+                  .scale(chtYScale) )
+              .selectAll("text")
+                  .attr('transform', 'rotate(180)');
+
+
+        }
+
       }, speed);
     };
     start();
   })
+
+  //plot graph
+  d3.select('body')
+    .append('h3')
+    .attr('class','title')
+    .text('Evolution');
+
+
+  var w = 530;
+  var h = 530;
+  padding = 40;
+
+  var timeSeries = [];
+
+  var graph = d3.select('body')
+    .append('svg')
+    .attr('width', w)
+    .attr('height', h)
+    .style('background-color', '#fee');
+
+  var xAxis = graph.append('g')
+     .attr('class','xAxis')
+     .attr('transform','translate(0,' + (h - padding) + ')');
+
+  var yAxis = graph.append('g')
+      .attr('class','yAxis')
+      .attr('transform','translate(' + (padding) + ',0)');
+
 })
+
+
+
+

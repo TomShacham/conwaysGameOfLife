@@ -1,3 +1,18 @@
+h3.title {
+  background-color: #eef;
+  width: 23%;
+}
+
+div#instructions {
+  background-color: #fee;
+  width: 23%;
+}
+
+div#stats{
+  background-color: #efe;
+  width: 23%;
+}
+
 button#start {
   margin-bottom: 10px;
 }
@@ -9,4 +24,16 @@ button#start {
   width: 5px;
   height: 5px;
   display: inline-block;
+}
+
+.xAxis path, .yAxis path,.yAxis line,
+.xAxis line {
+    fill: none;
+    stroke: blue;
+    shape-rendering: crispEdges;
+}
+
+.xAxis text, .yAxis path, {
+    font-family: sans-serif;
+    font-size: 11px;
 }
