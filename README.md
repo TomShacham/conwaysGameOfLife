@@ -5,6 +5,8 @@ Hosted on heroku (+ uses newrelic) at http://conways-game-of-life-on-node.heroku
 
 Tech wise this is a Node.js application that uses Express.js and is essentially powered by jQuery (it's doing most of the business logic). Look in public/js/client.js for the crux of it.
 
+Heavy use of D3 to plot evolution of eco-system over time. 
+
 You can read the [insightful wikipedia page] but basically this demonstrates the idea of chaos theory.
 
 Chaos theory stripped down says something like.. 'for very small changes in the initial conditions for a system, extremely different behaviour / characteristics / output may be observed'.
